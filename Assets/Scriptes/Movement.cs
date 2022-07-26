@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
+    [SerializeField] private float _speed;
 
-    private SpriteRenderer _spriteRenderer;
-    private Animator _animator;
     private Rigidbody2D _rigidbody2D;
+
+    private float _distanceToGround = 0.1f;
+
+    public static float Speed { get; private set; }
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        Speed = _speed;
     }
 
     private void Update()
     {
-        _animator.SetFloat("Speed", 0);
         Run();
         Jump();
     }
@@ -30,15 +30,10 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(_speed * Time.deltaTime, 0, 0);
-            _animator.SetFloat("Speed", _speed);
-            _spriteRenderer.flipX = false;
         }
-
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(_speed * Time.deltaTime * -1, 0, 0);
-            _animator.SetFloat("Speed", _speed);
-            _spriteRenderer.flipX = true;
         }
     }
 
@@ -46,7 +41,7 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, _distanceToGround);
             if (hit == true)
             {
                 _rigidbody2D.AddForce(Vector2.up * _jumpForce);
