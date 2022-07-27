@@ -6,7 +6,7 @@ public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private Coin _coin;
     [SerializeField] private Transform _spawners;
-    [SerializeField] private float _timeBetweenSpawn;
+    [SerializeField] private float _delay;
 
     private Transform[] _coinSpawners;
 
@@ -26,14 +26,10 @@ public class CoinSpawner : MonoBehaviour
     {
         for (int i = 0; i <= _coinSpawners.Length; i++)
         {
+            if (_coinSpawners[i].position != null)
             Instantiate(_coin, _coinSpawners[i].position, Quaternion.identity);
 
-            if (i == _coinSpawners.Length - 1)
-            {
-                i = -1;
-            }
-
-            yield return new WaitForSeconds(_timeBetweenSpawn);
+            yield return new WaitForSeconds(_delay);
         }
     }
 }

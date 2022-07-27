@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
-public class Movement : MonoBehaviour
+public class Controller : MonoBehaviour
 {
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _speed;
@@ -23,11 +23,16 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        Run();
-        Jump();
+        Movement();
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, _distanceToGround);
+        if (hit == true)
+        {
+            Jump();
+        }
     }
 
-    private void Run()
+    private void Movement()
     {
         if (Input.GetKey(KeyCode.D))
         {
@@ -43,11 +48,7 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, _distanceToGround);
-            if (hit == true)
-            {
-                _rigidbody2D.AddForce(Vector2.up * _jumpForce);
-            }
+            _rigidbody2D.AddForce(Vector2.up * _jumpForce);
         }
     }
 }

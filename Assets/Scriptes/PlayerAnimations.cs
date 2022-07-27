@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
+
 public class PlayerAnimations : MonoBehaviour
 {
     private Animator _animator;
@@ -13,7 +17,7 @@ public class PlayerAnimations : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         _animator.SetFloat(HashAnimationNames.Speed, 0);
         Run();
@@ -23,12 +27,12 @@ public class PlayerAnimations : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            _animator.SetFloat(HashAnimationNames.Speed, Movement.Speed);
+            _animator.SetFloat(HashAnimationNames.Speed, Controller.Speed);
             _spriteRenderer.flipX = false;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            _animator.SetFloat(HashAnimationNames.Speed, Movement.Speed);
+            _animator.SetFloat(HashAnimationNames.Speed, Controller.Speed);
             _spriteRenderer.flipX = true;
         }
     }
