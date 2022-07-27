@@ -15,7 +15,7 @@ public class PlayerAnimations : MonoBehaviour
 
     void Update()
     {
-        _animator.SetFloat("Speed", 0);
+        _animator.SetFloat(HashAnimationNames.Speed, 0);
         Run();
     }
 
@@ -23,12 +23,12 @@ public class PlayerAnimations : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            _animator.SetFloat("Speed", Movement.Speed);
+            _animator.SetFloat(HashAnimationNames.Speed, Movement.Speed);
             _spriteRenderer.flipX = false;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            _animator.SetFloat("Speed", Movement.Speed);
+            _animator.SetFloat(HashAnimationNames.Speed, Movement.Speed);
             _spriteRenderer.flipX = true;
         }
     }
